@@ -1,16 +1,20 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import { initialState, reducer } from './popupReducer'
-const classNames = require('classnames');
+import React, { useEffect, useState, useReducer, createContext } from 'react';
+import { initialState, reducer } from './popupReducer';
+import Edit_Del from '../../components/popup/edit_del.jsx';
 import "./popup.scss"
+
+const classNames = require('classnames');
+export const Context = createContext(null);
 
 function Popup() {
   const [bookmark, setBookmark] = useState([]);
   const [hoverObj, setHoverObj] = useState({});
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  let index = 0;
   useEffect(() => {
     chrome.bookmarks.getTree(function (bookmarkTreeNodes) {
       setBookmark(bookmarkTreeNodes);
-      console.log(bookmarkTreeNodes);
     });
   }, [state.notify]);
   const handleMouseEvent = (idx, bool) => {
@@ -19,7 +23,6 @@ function Popup() {
     });
   }
 
-  let index = 0;
   const generateList = (bookmark) => {
     index++;
     return (
@@ -33,11 +36,11 @@ function Popup() {
                 bm.title ?
                   (
                     <div key={bm.id}>
-                      <label for={bm.title+bm.id} className="folder">
+                      <input type="checkbox" id={bm.title+bm.id} />
+                      <label htmlFor={bm.title+bm.id} className="folder">
                         <span>{bm.title}</span>
                         <i className="iconfont icon-down"></i>
                       </label>
-                      <input type="checkbox" id={bm.title+bm.id} />
                       {generateList(bm.children)}
                     </div>
                   ) : generateList(bm.children)
@@ -63,32 +66,10 @@ function Popup() {
     )
   }
   return (
-    <div>
-      <div className={classNames("mask", { "show_mask": state.show_del_mask || state.show_edit_mask })}>
-        <div className="mask_container">
-          <div className={classNames("del_container", { "show_del_container": state.show_del_mask })}>
-            <button className="delete_it" onClick={() => { dispatch({ type: 'done_delete' }) }}>Yes,delete it</button>
-            <button className="cancel_it" onClick={() => { dispatch({ type: 'cancel' }) }}>Cancel</button>
-          </div>
-          <div className={classNames("edit_container", { "show_edit_container": state.show_edit_mask })}>
-            <div className="col_title">
-              <span>Edit Title</span>
-              <span className="iconfont icon-close2" onClick={() => { dispatch({ type: 'cancel' }) }}></span>
-            </div>
-            <div className="col_input">
-              <input type="text" name="changedTitle"
-                value={state.edit_value}
-                onChange={(event) => dispatch({ type: 'change_edit_value', payload: event.target.value })} />
-            </div>
-            <div className="col_edit_btn">
-              <button className="edit_it" onClick={() => { dispatch({ type: 'done_edit' }) }}>Save</button>
-              <button className="cancel_it" onClick={() => { dispatch({ type: 'cancel' }) }}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <Context.Provider value={{state, dispatch}}>
+      <Edit_Del />
       {generateList(bookmark)}
-    </div>
+    </Context.Provider>
   )
 }
 

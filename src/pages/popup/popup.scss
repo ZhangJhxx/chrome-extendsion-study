@@ -72,13 +72,28 @@
   cursor: pointer;
   border: 1px solid #000;
 }
-.ul_wrapper input[type="checkbox"]{
-  display:none;
-  & ~ .ul_wrapper{
-    display:none;
+
+.ul_wrapper {
+
+  label.folder .icon-down:before {
+    transition: rotate 0.5s ease-in-out;
+    display: inline-block;
   }
-  &:checked ~ .ul_wrapper{
-    display:block;
+
+  input[type="checkbox"] {
+    display: none;
+
+    &~.ul_wrapper {
+      display: none;
+    }
+
+    &:checked~.ul_wrapper {
+      display: block;
+    }
+
+    &:checked+label.folder .icon-down:before {
+      transform: rotate(180deg);
+    }
   }
 }
 
