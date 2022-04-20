@@ -10,6 +10,7 @@ function Popup() {
   useEffect(() => {
     chrome.bookmarks.getTree(function (bookmarkTreeNodes) {
       setBookmark(bookmarkTreeNodes);
+      console.log(bookmarkTreeNodes);
     });
   }, [state.notify]);
   const handleMouseEvent = (idx, bool) => {
@@ -32,7 +33,11 @@ function Popup() {
                 bm.title ?
                   (
                     <div key={bm.id}>
-                      <span>{bm.title}</span>
+                      <label for={bm.title+bm.id} className="folder">
+                        <span>{bm.title}</span>
+                        <i className="iconfont icon-down"></i>
+                      </label>
+                      <input type="checkbox" id={bm.title+bm.id} />
                       {generateList(bm.children)}
                     </div>
                   ) : generateList(bm.children)
@@ -46,9 +51,7 @@ function Popup() {
                 >
                   <span>{bm.title}</span>
                   <div className={classNames("default_close", { "show_editBtn": !!hoverObj[bm.id] })}>
-                    <button onClick={() => { dispatch({ type: 'show_edit', payload:{ id:bm.id,title: bm.title
-                    
-                     }}) }}>edit</button>
+                    <button onClick={() => { dispatch({ type: 'show_edit', payload: { id: bm.id, title: bm.title } }) }}>edit</button>
                     <button onClick={() => { dispatch({ type: 'show_delete', payload: bm.id }) }}>delete</button>
                   </div>
                 </li>
@@ -70,10 +73,12 @@ function Popup() {
           <div className={classNames("edit_container", { "show_edit_container": state.show_edit_mask })}>
             <div className="col_title">
               <span>Edit Title</span>
-              <span className="iconfont icon-close2" onClick={() => { dispatch({ type: 'cancel'})}}></span>
+              <span className="iconfont icon-close2" onClick={() => { dispatch({ type: 'cancel' }) }}></span>
             </div>
             <div className="col_input">
-              <input type="text" name="changedTitle" />
+              <input type="text" name="changedTitle"
+                value={state.edit_value}
+                onChange={(event) => dispatch({ type: 'change_edit_value', payload: event.target.value })} />
             </div>
             <div className="col_edit_btn">
               <button className="edit_it" onClick={() => { dispatch({ type: 'done_edit' }) }}>Save</button>
