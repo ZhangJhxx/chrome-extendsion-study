@@ -1,0 +1,25 @@
+{
+  "name": "bookmarks_manager",
+  "description": "Build an Extension!",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "bookmarks"
+  ],
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "./image/bookmark4.png",
+      "32": "./image/bookmark3.png",
+      "48": "./image/bookmark2.png",
+      "128": "./image/bookmark1.png"
+    }
+  },
+  "icons": {
+    "16": "/image/bookmark4.png",
+    "32": "/image/bookmark3.png",
+    "48": "/image/bookmark2.png",
+    "128": "/image/bookmark1.png"
+  }
+}
