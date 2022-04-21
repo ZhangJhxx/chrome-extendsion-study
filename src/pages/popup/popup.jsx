@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useReducer, createContext, useDeferredValue } from 'react';
 import { initialState, reducer } from './popupReducer';
 import Edit_Del from '../../components/popup/edit_del.jsx';
+import SearchBar from "../../components/searchBar/index.jsx"
 import { useESC } from "../../hooks/useESC.jsx";
 import "./popup.scss"
 
@@ -40,9 +41,9 @@ function Popup() {
               return (
                 bm.title ?
                   (
-                    <div key={bm.id}>
+                    <div key={bm.id} className="folder">
                       <input type="checkbox" id={bm.title + bm.id} />
-                      <label htmlFor={bm.title + bm.id} className="folder">
+                      <label htmlFor={bm.title + bm.id} className="folder_label">
                         <span>{bm.title}</span>
                         <i className="iconfont icon-down"></i>
                       </label>
@@ -81,6 +82,7 @@ function Popup() {
   }
   return (
     <Context.Provider value={{ state, dispatch }}>
+      <SearchBar/>
       <Edit_Del />
       {generateList(bookmark)}
     </Context.Provider>

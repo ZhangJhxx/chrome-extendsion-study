@@ -9,10 +9,11 @@
   display: none;
 
   .mask_container {
+    width: 250px;
     min-width: 200px;
     max-width: 300px;
     min-height: 120px;
-    margin: auto;
+    margin: 100px auto;
 
     .del_container,
     .edit_container {
@@ -76,9 +77,21 @@
 
 .ul_wrapper {
 
-  label.folder .icon-down:before {
-    transition: rotate 0.5s ease-in-out;
+  label.folder_label {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom:1px solid #fff;
+    width: 100%;
+    background-color: #4791e6d2;
+    color: #fff;
+  }
+
+  label.folder_label .icon-down:before {
     display: inline-block;
+    color: #fff;
+    transition: rotate 0.5s ease-in-out;
   }
 
   input[type="checkbox"] {
@@ -91,8 +104,10 @@
     &:checked~.ul_wrapper {
       display: block;
     }
-
-    &:checked+label.folder .icon-down:before {
+    &:checked+label.folder_label{
+      background-color: #2e8bff;
+    }
+    &:checked+label.folder_label .icon-down:before {
       transform: rotate(180deg);
     }
   }
@@ -101,6 +116,10 @@
 .li_item {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid #4791e6d2;
+  border-right: 1px solid #4791e6d2;
 
   .default_close {
     display: none;
@@ -111,7 +130,7 @@
       background-color: transparent;
       text-decoration: underline;
       margin: 0;
-      padding: 0 2px;
+      padding: 0 3px;
 
       &:hover {
         cursor: pointer;
@@ -119,14 +138,9 @@
         color: green;
       }
     }
-
-    .edit_btn {}
-
-    .delete_btn {}
   }
 
   .show_editBtn {
     display: block;
-
   }
 }

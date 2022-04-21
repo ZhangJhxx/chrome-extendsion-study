@@ -1,0 +1,41 @@
+div.search {
+  padding: 30px 0;
+}
+
+.bar3 {
+  background: #F9F0DA;
+}
+
+.bar3 form {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+  background: #A3D0C3;
+}
+.bar3 input{
+  width: 100%;
+  height: 42px;
+  padding-left: 13px;
+}
+.bar3 input,
+.bar3 button {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.bar3 button {
+  height: 42px;
+  width: 42px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.bar3 button:before {
+  content: "\e775";
+  font-family: iconfont;
+  font-size: 18px;
+  color: #F9F0DA;
+}
