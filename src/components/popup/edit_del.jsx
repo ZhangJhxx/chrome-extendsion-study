@@ -4,7 +4,11 @@ import { Context } from "../../pages/popup/popup.jsx"
 
 function Edit_Del() {
   const { state, dispatch } = useContext(Context);
-
+  const handleEdit = (event) =>{
+    if(event.keyCode === 13) {
+      dispatch({type: 'done_edit', payload: event.target.value})
+    }
+  }
   return (
     <div className={classNames("mask", { "show_mask": state.show_del_mask || state.show_edit_mask })}>
       <div className="mask_container">
@@ -26,6 +30,7 @@ function Edit_Del() {
           <div className="col_input">
             <input type="text" name="changedTitle"
               value={state.edit_value}
+              onKeyUp={(event)=>handleEdit(event)}
               onChange={(event) => dispatch({ type: 'change_edit_value', payload: event.target.value })} />
           </div>
           <div className="col_edit_btn">

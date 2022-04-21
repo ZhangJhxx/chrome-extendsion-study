@@ -4,6 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 100;
   background-color: rgba($color: #000000, $alpha: .3);
   display: none;
 
@@ -11,6 +12,7 @@
     min-width: 200px;
     max-width: 300px;
     min-height: 120px;
+    margin: auto;
 
     .del_container,
     .edit_container {
@@ -70,7 +72,6 @@
 
 .ul_wrapper span:hover {
   cursor: pointer;
-  border: 1px solid #000;
 }
 
 .ul_wrapper {
@@ -103,9 +104,29 @@
 
   .default_close {
     display: none;
+
+    .operate_btn {
+      outline: none;
+      border: none;
+      background-color: transparent;
+      text-decoration: underline;
+      margin: 0;
+      padding: 0 2px;
+
+      &:hover {
+        cursor: pointer;
+        font-weight: 600;
+        color: green;
+      }
+    }
+
+    .edit_btn {}
+
+    .delete_btn {}
   }
 
   .show_editBtn {
     display: block;
+
   }
 }
