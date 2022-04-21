@@ -1,3 +1,4 @@
+@import "../../assects/variable";
 .mask {
   position: fixed;
   top: 0;
@@ -84,7 +85,7 @@
     padding: 5px;
     border-bottom:1px solid #fff;
     width: 100%;
-    background-color: #4791e6d2;
+    background-color: $lightblue;
     color: #fff;
   }
 
@@ -105,7 +106,7 @@
       display: block;
     }
     &:checked+label.folder_label{
-      background-color: #2e8bff;
+      background-color: $boyzoneblue;
     }
     &:checked+label.folder_label .icon-down:before {
       transform: rotate(180deg);
@@ -118,9 +119,11 @@
   flex-direction: row;
   align-items: center;
   padding: 5px 0 5px 0;
-  border-bottom: 1px solid #4791e6d2;
-  border-right: 1px solid #4791e6d2;
-
+  border-bottom: 1px solid $lightblue;
+  border-right: 1px solid $lightblue;
+  &:hover{
+    cursor: pointer;
+  }
   .default_close {
     display: none;
 

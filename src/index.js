@@ -1,10 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Popup from "./pages/popup/popup.jsx";
+import "./index.scss"
 import "./assects/reset.css"
 import "./assects/fonts/iconfont.css"
-import "./assects/variable.scss"
-import "./index.scss"
+import Popup from "./pages/popup/popup.jsx";
 
 const container = document.getElementById('app');
 const root = createRoot(container); 

@@ -11,6 +11,7 @@ export const Context = createContext(null);
 function Popup() {
   const [bookmark, setBookmark] = useState([]);
   const [hoverObj, setHoverObj] = useState({});
+  const [results, setResults] = useState([]);
   const deferredHoverObj = useDeferredValue(hoverObj, {
     timeoutMs: 500
   });
@@ -58,7 +59,7 @@ function Popup() {
                   onMouseEnter={() => handleMouseEvent(bm.id, true)}
                   onMouseLeave={() => handleMouseEvent(bm.id, false)}
                 >
-                  <span>{bm.title}</span>
+                  <a href={bm.url} target="_blank">{bm.title}</a>
                   <div className={classNames("default_close", { "show_editBtn": !!deferredHoverObj[bm.id] })}>
                     <button
                       onClick={() => { dispatch({ type: 'show_edit', payload: { id: bm.id, title: bm.title } })}}
@@ -80,11 +81,24 @@ function Popup() {
       </ul>
     )
   }
+  const generateResultList =(results)=>{
+    return (
+      <ul>
+        {
+          results.map(result =>(
+            <li className="li_item" key={result.id}>
+              <a href={result.url} target="_blank">{result.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    )
+  }
   return (
     <Context.Provider value={{ state, dispatch }}>
-      <SearchBar/>
+      <SearchBar handleSetResult={(queryResult) =>setResults(queryResult)}/>
       <Edit_Del />
-      {generateList(bookmark)}
+      {results.length>0 ? generateResultList(results) : generateList(bookmark)}
     </Context.Provider>
   )
 }
