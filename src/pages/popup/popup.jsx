@@ -62,12 +62,12 @@ function Popup() {
                   <a href={bm.url} target="_blank">{bm.title}</a>
                   <div className={classNames("default_close", { "show_editBtn": !!deferredHoverObj[bm.id] })}>
                     <button
-                      onClick={() => { dispatch({ type: 'show_edit', payload: { id: bm.id, title: bm.title } })}}
+                      onClick={() => { dispatch({ type: 'show_edit', payload: { id: bm.id, title: bm.title } }) }}
                       className="operate_btn edit_btn">
                       edit
                     </button>
                     <button
-                      onClick={() => { dispatch({ type: 'show_delete', payload: bm.id })}}
+                      onClick={() => { dispatch({ type: 'show_delete', payload: bm.id }) }}
                       className="operate_btn delete_btn"
                     >
                       delete
@@ -81,24 +81,38 @@ function Popup() {
       </ul>
     )
   }
-  const generateResultList =(results)=>{
+  const generateResultList = (results) => {
     return (
       <ul>
         {
-          results.map(result =>(
+          results.map(result => (
             <li className="li_item" key={result.id}>
-              <a href={result.url} target="_blank">{result.title}</a>
+              <div className="res_item_wrapper">
+                <div className="res_item_title">
+                  <span className="iconfont icon-chrome-line"></span>
+                  <a href={result.url} target="_blank">{result.title}</a>
+                </div>
+                <div className="detail">
+                  <span className="detail_path">
+                  「{result.resPath}」
+                  </span>
+                  <span className="detail_path">
+                    {result.url}
+                  </span>
+                </div>
+              </div>
             </li>
           ))
         }
       </ul>
     )
   }
+
   return (
     <Context.Provider value={{ state, dispatch }}>
-      <SearchBar handleSetResult={(queryResult) =>setResults(queryResult)}/>
+      <SearchBar handleSetResult={(queryResult) => setResults(queryResult)} />
       <Edit_Del />
-      {results.length>0 ? generateResultList(results) : generateList(bookmark)}
+      {results.length > 0 ? generateResultList(results) : generateList(bookmark)}
     </Context.Provider>
   )
 }

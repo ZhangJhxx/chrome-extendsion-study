@@ -6,19 +6,45 @@ function SearchBar({handleSetResult}) {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query);
   useEffect(()=>{
-    chrome.bookmarks.search(debouncedQuery,(results)=>{
-      handleSetResult(results);
-      console.log(results);
-    })
-  },[debouncedQuery])
+    if(debouncedQuery.length>0){
+      chrome.bookmarks.getTree(function (bookmarkTreeNodes) {
+        handleSetResult(getPath(bookmarkTreeNodes,debouncedQuery));
+      });
+    }
+  },[debouncedQuery]);
+  const getPath = (bookmarks,query) =>{
+    const reg = new RegExp(query,"i");
+    const res = [];
+    const path = [];
+    function dfs(bookmark){
+      for(let i = 0; i < bookmark.length; i++){
+        if(bookmark[i].children && bookmark[i].children.length>0){
+          if(bookmark[i].title.trim().length>0){
+            path.push(bookmark[i].title);
+          }
+          dfs(bookmark[i].children);
+          path.pop();
+        }else{
+          if(reg.test(bookmark[i].title)){
+            const resItem = {
+              id:bookmark[i].id,
+              title:bookmark[i].title,
+              url:bookmark[i].url,
+              resPath: path.slice().join("-")
+            }
+            res.push(resItem);
+          }
+        }
+      }
+    }
+    dfs(bookmarks);
+    return res;
+  }
   const handleSubmit = (e)=>{ 
     e.preventDefault();
-  //   chrome.bookmarks.search(query,(results)=>{
-  //     console.log(results);
-  //   })
   }
   const handleOnChange = (e)=>{
-    setQuery(e.target.value)
+    setQuery(e.target.value);
   }
   return (
     <div className="search_container">
