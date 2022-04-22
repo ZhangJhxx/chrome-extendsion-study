@@ -2,7 +2,7 @@ import React, { useContext, useDeferredValue, useState } from 'react'
 const classNames = require('classnames');
 import { Context } from "../../pages/popup/popup.jsx"
 
-const GenList = ({bookmark}) => {
+const GenList = ({ bookmark }) => {
   let index = 0;
   const [hoverObj, setHoverObj] = useState({});
   const { state, dispatch } = useContext(Context);
@@ -14,6 +14,20 @@ const GenList = ({bookmark}) => {
   const deferredHoverObj = useDeferredValue(hoverObj, {
     timeoutMs: 500
   });
+  async function getCurrentTab() {
+    let queryOptions = { active: true, currentWindow: true };
+    let [tab] = await chrome.tabs.query(queryOptions);
+    return tab;
+  }
+  const add = async (bm,event) => {
+    event.preventDefault();
+    let tab = await getCurrentTab();
+    dispatch({type: 'show_add_mask', payload:{ 
+      url:tab.url,
+      title:tab.title,
+      parentId: bm.id
+    }})
+  }
 
   const generateList = (bookmark) => {
     index++;
@@ -36,7 +50,11 @@ const GenList = ({bookmark}) => {
                         onMouseLeave={() => handleMouseEvent(bm.id, false)}>
                         <span className="folder_title">
                           <span>{bm.title}</span>
-                          <span className={classNames("folder_add_btn", { "show_folder_add_btn": !!deferredHoverObj[bm.id] })}>+</span>
+                          <span
+                            className={classNames("folder_add_btn", { "show_folder_add_btn": !!deferredHoverObj[bm.id] })}
+                            onClick={(e)=>add(bm,e)}
+                          >+
+                          </span>
                         </span>
                         <i className="iconfont icon-down"></i>
                       </label>
