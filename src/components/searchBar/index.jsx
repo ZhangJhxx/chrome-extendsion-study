@@ -1,5 +1,6 @@
 import React,{ useState, useEffect  } from 'react'
 import { useDebounce } from "../../hooks/useDebounce.jsx"
+import PinyinMatch from 'pinyin-match'
 import "./searchBar.scss" 
 
 function SearchBar({handleSetResult}) {
@@ -25,7 +26,7 @@ function SearchBar({handleSetResult}) {
           dfs(bookmark[i].children);
           path.pop();
         }else{
-          if(reg.test(bookmark[i].title)){
+          if(reg.test(bookmark[i].title) || PinyinMatch.match(bookmark[i].title, query) !== false){
             const resItem = {
               id:bookmark[i].id,
               title:bookmark[i].title,
