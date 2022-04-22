@@ -11,6 +11,8 @@ function SearchBar({handleSetResult}) {
       chrome.bookmarks.getTree(function (bookmarkTreeNodes) {
         handleSetResult(getPath(bookmarkTreeNodes,debouncedQuery));
       });
+    }else{
+      handleSetResult([]);
     }
   },[debouncedQuery]);
   const getPath = (bookmarks,query) =>{

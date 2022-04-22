@@ -88,13 +88,29 @@
     width: 100%;
     background-color: $lightblue;
     color: #fff;
+    .folder_title{
+      display: flex;
+      .folder_add_btn{
+        padding: 0 20px;
+        margin-left: 10px;
+        border-radius: 4px;
+        display: none;
+        &:hover{
+          background-color: #fff;
+          color: $lightblue;
+        }
+      }
+      .show_folder_add_btn{
+        display: block;
+      }
+    }
+    .icon-down:before {
+      display: inline-block;
+      color: #fff;
+      transition: rotate 0.5s ease-in-out;
+    }
   }
 
-  label.folder_label .icon-down:before {
-    display: inline-block;
-    color: #fff;
-    transition: rotate 0.5s ease-in-out;
-  }
 
   input[type="checkbox"] {
     display: none;
@@ -164,7 +180,7 @@
       &:hover {
         cursor: pointer;
         font-weight: 600;
-        color: green;
+        color: $browserblue;
       }
     }
   }
