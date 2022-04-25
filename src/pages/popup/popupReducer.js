@@ -1,5 +1,5 @@
 export const initialState = {
-  editBookmarkId: 0,
+  bookmark: null,
   parentId: 0,
   show_del_mask: false,
   show_edit_mask: false,
@@ -7,7 +7,6 @@ export const initialState = {
   add_bookmark_url: "",
   add_bookmark_title: "",
   notify: true,
-  edit_value: ""
 }
 export function reducer(state, action) {
   switch (action.type) {
@@ -15,14 +14,13 @@ export function reducer(state, action) {
       return {
         ...state,
         show_del_mask: true,
-        editBookmarkId: action.payload
+        bookmark: { ...state.bookmark, ...action.payload }
       }
     case "show_edit":
       return {
         ...state,
         show_edit_mask: true,
-        editBookmarkId: action.payload['id'],
-        edit_value: action.payload['title'],
+        bookmark: { ...state.bookmark, ...action.payload },
       }
     case "show_add_mask":
       return {
@@ -46,10 +44,12 @@ export function reducer(state, action) {
     case "change_edit_value":
       return {
         ...state,
-        edit_value: action.payload,
+        bookmark: { ...state.bookmark, title: action.payload },
       }
     case "done_delete":
-      chrome.bookmarks.remove(String(state.editBookmarkId));
+      state.bookmark.children ? 
+      chrome.bookmarks.removeTree(state.bookmark.id) :
+      chrome.bookmarks.remove(String(state.bookmark.id));
       return {
         ...state,
         show_del_mask: false,
@@ -67,8 +67,8 @@ export function reducer(state, action) {
         notify: !state.notify
       }
     case "done_edit":
-      chrome.bookmarks.update(String(state.editBookmarkId), {
-        title: state.edit_value
+      chrome.bookmarks.update(String(state.bookmark.id), {
+        title: state.bookmark.title
       });
       return {
         ...state,

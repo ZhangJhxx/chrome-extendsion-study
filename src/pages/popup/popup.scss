@@ -18,8 +18,9 @@
     color: #fff;
     .folder_title{
       display: flex;
-      .folder_add_btn{
-        padding: 0 20px;
+      .folder_add_btn,
+      .folder_remove_btn{
+        padding: 0 15px;
         margin-left: 10px;
         border-radius: 4px;
         display: none;
@@ -28,7 +29,7 @@
           color: $lightblue;
         }
       }
-      .show_folder_add_btn{
+      .show_folder_btn{
         display: block;
       }
     }

@@ -19,14 +19,16 @@ const GenList = ({ bookmark }) => {
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab;
   }
-  const add = async (bm,event) => {
+  const add = async (bm, event) => {
     event.preventDefault();
     let tab = await getCurrentTab();
-    dispatch({type: 'show_add_mask', payload:{ 
-      url:tab.url,
-      title:tab.title,
-      parentId: bm.id
-    }})
+    dispatch({
+      type: 'show_add_mask', payload: {
+        url: tab.url,
+        title: tab.title,
+        parentId: bm.id
+      }
+    })
   }
 
   const generateList = (bookmark) => {
@@ -51,9 +53,14 @@ const GenList = ({ bookmark }) => {
                         <span className="folder_title">
                           <span>{bm.title}</span>
                           <span
-                            className={classNames("folder_add_btn", { "show_folder_add_btn": !!deferredHoverObj[bm.id] })}
-                            onClick={(e)=>add(bm,e)}
+                            className={classNames("folder_add_btn", { "show_folder_btn": !!deferredHoverObj[bm.id] })}
+                            onClick={(e) => add(bm, e)}
                           >+
+                          </span>
+                          <span
+                            className={classNames("folder_remove_btn", { "show_folder_btn": !!deferredHoverObj[bm.id] })}
+                            onClick={() =>  dispatch({ type: 'show_delete', payload: { id: bm.id, children: bm.children } }) }
+                          >-
                           </span>
                         </span>
                         <i className="iconfont icon-down"></i>
@@ -72,12 +79,12 @@ const GenList = ({ bookmark }) => {
                   <a href={bm.url} target="_blank">{bm.title}</a>
                   <div className={classNames("default_close", { "show_editBtn": !!deferredHoverObj[bm.id] })}>
                     <button
-                      onClick={() => { dispatch({ type: 'show_edit', payload: { id: bm.id, title: bm.title } }) }}
+                      onClick={() =>  dispatch({ type: 'show_edit', payload: { id: bm.id, title: bm.title } }) }
                       className="operate_btn edit_btn">
                       edit
                     </button>
                     <button
-                      onClick={() => { dispatch({ type: 'show_delete', payload: bm.id }) }}
+                      onClick={() =>  dispatch({ type: 'show_delete', payload: { id: bm.id, children: none } }) }
                       className="operate_btn delete_btn"
                     >
                       delete

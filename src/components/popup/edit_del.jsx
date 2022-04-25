@@ -27,7 +27,7 @@ function Edit_Del() {
           <HeadBar title="Edit Title" closeEvent={() => dispatch({ type: 'cancel' })} />
           <div className="col_input">
             <input type="text" name="changedTitle"
-              value={state.edit_value}
+              value={state.bookmark ? state.bookmark['title'] : ""}
               onKeyUp={(event) => handleEdit(event)}
               onChange={(event) => dispatch({ type: 'change_edit_value', payload: event.target.value })} />
           </div>
@@ -41,7 +41,7 @@ function Edit_Del() {
           <HeadBar title="add a new bookmark" closeEvent={() => dispatch({ type: 'cancel' })} />
           <div className="col_input">
             <input type="text" name="addTitle"
-              value={state.add_bookmark_title}
+              value={ state.add_bookmark_title }
               onChange={(event) => dispatch({ type: 'change_add_title', payload: event.target.value })} />
           </div>
           <div className="col_input">

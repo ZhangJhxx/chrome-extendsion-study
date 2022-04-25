@@ -16,6 +16,7 @@ function Popup() {
   useESC(() => dispatch({ type: 'cancel' }));
   useEffect(() => {
     chrome.bookmarks.getTree(function (bookmarkTreeNodes) {
+      console.log(bookmarkTreeNodes);
       setBookmark(bookmarkTreeNodes);
     });
   }, [state.notify]);
