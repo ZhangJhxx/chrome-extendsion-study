@@ -75,6 +75,17 @@ export function reducer(state, action) {
         show_edit_mask: false,
         notify: !state.notify
       }
+    case "done_move":
+      chrome.bookmarks.move(
+        action.payload['id'],{
+          parentId: action.payload['parentId']
+        }
+      );
+      return {
+        ...state,
+        notify: !state.notify
+      }
+
     case "cancel":
       return {
         ...state,
