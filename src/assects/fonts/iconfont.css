@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3343520 */
-  src: url('https://at.alicdn.com/t/font_3343520_aiacy4csmcq.woff2?t=1650598052562') format('woff2'),
-       url('https://at.alicdn.com/t/font_3343520_aiacy4csmcq.woff?t=1650598052562') format('woff'),
-       url('https://at.alicdn.com/t/font_3343520_aiacy4csmcq.ttf?t=1650598052562') format('truetype');
+  src: url('https://at.alicdn.com/t/font_3343520_391zalo78j2.woff2?t=1650947248658') format('woff2'),
+       url('https://at.alicdn.com/t/font_3343520_391zalo78j2.woff?t=1650947248658') format('woff'),
+       url('https://at.alicdn.com/t/font_3343520_391zalo78j2.ttf?t=1650947248658') format('truetype');
 }
 
 .iconfont {
@@ -13,16 +13,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-right:before {
+  font-size: 18px;
+  content: "\e665";
+}
+
+.icon-open:before {
+  content: "\e600";
+}
+
+.icon-bookmarks:before {
+  font-size: 18px;
+  content: "\e730";
+}
+
+.icon-folder-fill:before {
+  content: "\e7c4";
+}
+
 .icon-chrome-line:before {
   content: "\e7af";
 }
 
 .icon-RightArrow:before {
   content: "\e775";
-}
-
-.icon-down:before {
-  content: "\e7eb";
 }
 
 .icon-close2:before {

@@ -6,6 +6,9 @@
 }
 
 .ul_wrapper {
+  .folder {
+    padding-left: 10px;
+  }
 
   label.folder_label {
     display: flex;
@@ -16,24 +19,32 @@
     width: 100%;
     background-color: $lightblue;
     color: #fff;
-    .folder_title{
+
+    .folder_title {
+      display: flex;
+    }
+
+    .btn_group {
       display: flex;
       .folder_add_btn,
-      .folder_remove_btn{
+      .folder_remove_btn {
         padding: 0 15px;
         margin-left: 10px;
         border-radius: 4px;
         display: none;
-        &:hover{
+
+        &:hover {
           background-color: #fff;
           color: $lightblue;
         }
       }
-      .show_folder_btn{
+
+      .show_folder_btn {
         display: block;
       }
     }
-    .icon-down:before {
+
+    .icon-right:before {
       display: inline-block;
       color: #fff;
       transition: rotate 0.5s ease-in-out;
@@ -56,8 +67,8 @@
       background-color: $boyzoneblue;
     }
 
-    &:checked+label.folder_label .icon-down:before {
-      transform: rotate(180deg);
+    &:checked+label.folder_label .icon-right:before {
+      transform: rotate(90deg);
     }
   }
 }
@@ -66,12 +77,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 5px 0 5px 0;
-  border-bottom: 1px solid $lightblue;
-  border-right: 1px solid $lightblue;
+  padding: 2px 0 2px 10px;
 
   &:hover {
     cursor: pointer;
+    background-color: #f6f8fa;
   }
 
   div.res_item_wrapper {
@@ -117,4 +127,7 @@
   .show_editBtn {
     display: block;
   }
+}
+.chosen{
+  border-bottom: 1px solid #000;
 }

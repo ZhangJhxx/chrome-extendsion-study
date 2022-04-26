@@ -47,7 +47,7 @@ export function reducer(state, action) {
         bookmark: { ...state.bookmark, title: action.payload },
       }
     case "done_delete":
-      state.bookmark.children ? 
+      state.bookmark.children.length ? 
       chrome.bookmarks.removeTree(state.bookmark.id) :
       chrome.bookmarks.remove(String(state.bookmark.id));
       return {
@@ -78,7 +78,8 @@ export function reducer(state, action) {
     case "done_move":
       chrome.bookmarks.move(
         action.payload['id'],{
-          parentId: action.payload['parentId']
+          parentId: action.payload['parentId'],
+          index: action.payload['index']
         }
       );
       return {
